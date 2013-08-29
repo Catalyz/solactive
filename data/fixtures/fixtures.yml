@@ -1,0 +1,78 @@
+Actor:
+  user1:
+    phone_no:     '0621436290'
+    card_no:      '0621436290'
+    name:         'User 1'
+    password:     <?php echo md5('sol')."\n"; ?>
+    perm_tracking: 1
+    perm_stats:   1
+    perm_export:  1
+    latitude:  '44.0208366'
+    longitude:  '1.3537568'
+  user2:
+    phone_no:     '0123456789'
+    card_no:      '0123456789'
+    name:         'User 2'
+    password:     <?php echo md5('sol')."\n"; ?>
+    perm_tracking: 0
+    perm_stats:   1
+    perm_export:  0
+    latitude:  '44.0177169'
+    longitude:  '1.3546225'
+
+#Ticket:
+#  ticket1:
+#    bubble_tag:   'D60N00A005730'
+#    amount:       10.00
+#    status:       <?php echo Ticket::STATUS_DISABLED."\n"; ?>
+#    expire_at:    '2011-12-31'
+#  ticket2:
+#    bubble_tag:   'D60N00A005727'
+#    amount:       10.00
+#    status:       <?php echo Ticket::STATUS_DISABLED."\n"; ?>
+#    expire_at:    '2011-12-31'
+#  ticket3:
+#    bubble_tag:   'D60N00A005724'
+#    amount:       5.00
+#    status:       <?php echo Ticket::STATUS_DISABLED."\n"; ?>
+#    expire_at:    '2011-12-31'
+#  ticket4:
+#    bubble_tag:   'D60N00A005760'
+#    amount:       5.00
+#    status:       <?php echo Ticket::STATUS_DISABLED."\n"; ?>
+#    expire_at:    '2011-12-31'
+#  ticket5:
+#    bubble_tag:   'D60N00A005759'
+#    amount:       5.00
+#    status:       <?php echo Ticket::STATUS_DISABLED."\n"; ?>
+#    expire_at:    '2011-12-31'
+#  ticket6:
+#    bubble_tag:   'P00A00B138919'
+#    amount:       5.00
+#    status:       <?php echo Ticket::STATUS_DISABLED."\n"; ?>
+#    expire_at:    '2011-12-31'
+#  ticket7:
+#    bubble_tag:   'P00A00B138918'
+#    amount:       5.00
+#    status:       <?php echo Ticket::STATUS_DISABLED."\n"; ?>
+#    expire_at:    '2011-12-31'
+#  ticket8:
+#    bubble_tag:   'P00A00B138917'
+#    amount:       5.00
+#    status:       <?php echo Ticket::STATUS_DISABLED."\n"; ?>
+#    expire_at:    '2011-12-31'
+#  ticket9:
+#    bubble_tag:   'P00A00B138916'
+#    amount:       5.00
+#    status:       <?php echo Ticket::STATUS_DISABLED."\n"; ?>
+#    expire_at:    '2011-12-31'
+#  ticket10:
+#    bubble_tag:   'P00A00B138915'
+#    amount:       5.00
+#    status:       <?php echo Ticket::STATUS_DISABLED."\n"; ?>
+#    expire_at:    '2011-12-31'
+#  ticket11:
+#    bubble_tag:   'P00A00B138914'
+#    amount:       5.00
+#    status:       <?php echo Ticket::STATUS_DISABLED."\n"; ?>
+#    expire_at:    '2011-12-31'

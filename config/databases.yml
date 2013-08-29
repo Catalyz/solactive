@@ -1,0 +1,47 @@
+# You can find more information about this file on the symfony website:
+# http://www.symfony-project.org/reference/1_4/en/07-Databases
+
+af:
+  doctrine:
+    class: sfDoctrineDatabase
+    param:
+      dsn:      mysql:host=localhost;dbname=af_solviolette
+      username: af
+      password: password
+      encoding: utf8
+      attributes:
+        default_table_collate: utf8_unicode_ci
+        default_table_charset: utf8
+
+shordeaux:
+  doctrine:
+    class: sfDoctrineDatabase
+    param:
+      dsn:      mysql:host=localhost;dbname=shordeaux_solviolette
+      username: root
+      password: 3tu5ymog
+      encoding: utf8
+      attributes:
+        default_table_collate: utf8_unicode_ci
+        default_table_charset: utf8
+
+prod:
+  doctrine:
+    class: sfDoctrineDatabase
+    param:
+      dsn:      mysql:host=localhost;dbname=af_solviolette
+      username: af
+      password: password
+      encoding: utf8
+      attributes:
+        default_table_collate: utf8_unicode_ci
+        default_table_charset: utf8
+
+all:
+  doctrine:
+    class: sfDoctrineDatabase
+    param:
+      encoding: utf8
+      attributes:
+        default_table_collate: utf8_unicode_ci
+        default_table_charset: utf8

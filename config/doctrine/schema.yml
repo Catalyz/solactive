@@ -1,0 +1,53 @@
+#Actor:
+#  actAs:          { Timestampable: ~ }
+#  columns:
+#    phone_no:      { type: string(15) }
+#    name:          { type: string(255) }
+#    firstname:     { type: string(255) }
+#    adresse:       { type: string(255) }
+#    zip:           { type: string(255) }
+#    city:          { type: string(255) }
+#    email:         { type: string(255) }
+#    card_no:       { type: string(255) }
+#    sol_count:     { type: string(255) }
+#    euro_count:    { type: string(255) }
+#    password:      { type: string(50) }
+#    latitude:      { type: varchar(255) }
+#    longitude:     { type: varchar(255) }
+#    perm_tracking: { type: integer }
+#    perm_stats:    { type: integer }
+#    perm_export:   { type: integer }
+
+Ticket:
+  actAs:                 { Timestampable: ~ }
+  columns:
+    bubble_tag:          { type: string(13) }
+    amount:              { type: float }       # 1, 5 ou 10 sols
+    status:              { type: integer }     # VALID, EXPIRED
+    expire_at:           { type: date }        # lors de l'initialisation 31/12/2011
+  indexes:
+    bubble_tag_index:
+      fields:            [bubble_tag]
+      type:              unique
+
+TicketTracking:
+  actAs:                { Timestampable: ~ }
+  columns:
+    operator_id:        { type: integer, notnull: true }
+    actor_id:           { type: integer, notnull: true }
+#  relations:
+#    ActorActor:         { onDelete: CASCADE, local: actor_id, foreign: id ,class: Actor}
+#    ActorOperator:      { onDelete: CASCADE, local: operator_id, foreign: id ,class: Actor}
+
+TicketTrackingEntry:
+  actAs:                { Timestampable: ~ }
+  columns:
+    status:             { type: integer, notnull: true } # CONFIRMED, UPDATED, EXPIRED
+    ticket_id:          { type: integer, notnull: true }
+    ticket_tracking_id: { type: integer, notnull: true }
+  relations:
+    TicketTracking:     { onDelete: CASCADE, local: ticket_tracking_id, foreign: id }
+    Ticket:             { onDelete: CASCADE, local: ticket_id, foreign: id }
+  indexes:
+    created_at_index:
+      fields:            [created_at]
