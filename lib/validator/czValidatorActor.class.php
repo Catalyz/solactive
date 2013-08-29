@@ -23,7 +23,7 @@ class czValidatorActor extends sfValidatorBase {
         $this->addOption('max_length');
         $this->addMessage('max_length', 'Le numéro doit etre composé de 10 chiffres');
 
-        $this->setMessage('invalid', 'Aucun acteur de la base ne correspond à ce numéro');
+        $this->setMessage('invalid', 'Aucun adhérent de la base ne correspond à ce numéro');
         $this->setMessage('required', 'Le numéro est obligatoire');
     }
 

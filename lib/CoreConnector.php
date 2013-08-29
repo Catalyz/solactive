@@ -141,7 +141,7 @@ class CoreConnector {
         static $dbHandler = null;
 
         if (null == $dbHandler) {
-            $dbHandler = new PDO('mysql:dbname=catalyz_sol_violette;host=localhost', 'czKatao', '4,X3n,3U9ytsHujE');
+            $dbHandler = new PDO('mysql:dbname='.sfConfig::get('app_project_db_name').';host='.sfConfig::get('app_project_db_host'), sfConfig::get('app_project_db_login'), sfConfig::get('app_project_db_password'));
         }
 
         return $dbHandler;

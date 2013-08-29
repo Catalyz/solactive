@@ -7,7 +7,7 @@
 			<!--  start step-holder -->
 			<div id="step-holder">
 				<div class="step-no-off">1</div>
-				<div class="step-light-left"><a href="<?php echo url_for('@tracking_index') ?>">Choix de l'acteur</a></div>
+				<div class="step-light-left"><a href="<?php echo url_for('@tracking_index') ?>">Choix de l'adhérent</a></div>
 				<div class="step-light-right">&nbsp;</div>
 				<div class="step-no">2</div>
 				<div class="step-dark-left">Saisie des coupons</div>
@@ -31,7 +31,7 @@
 						<form onsubmit="return handleScan();" action="#"><input type="text" name="code" id="scanCode" /></form>
 					</td>
 					<td>&nbsp;</td>
-					<td>Sols scann&eacute;s: <span id="sum">0</span> sols</td>
+					<td><?php echo sfConfig::get('app_project_currency_plural') ?> scann&eacute;s: <span id="sum">0</span> <?php echo sfConfig::get('app_project_currency_plural') ?></td>
 				</tr>
 
 
@@ -62,9 +62,9 @@
 					<div class="left"><?php echo image_tag('forms/icon_edit.gif',array('alt'=>'')) ?></div>
 					<div class="right">
 						<h5>Effectuer une autre saisie</h5>
-						Une fois la saisie terminée pour cet acteur, vous pouvez effectuer une nouvelle saisie.
+						Une fois la saisie terminée pour cet adhérent, vous pouvez effectuer une nouvelle saisie.
 						<ul class="greyarrow">
-							<li><?php echo link_to('Saisir pour un autre acteur', '@tracking_index') ?></li>
+							<li><?php echo link_to('Saisir pour un autre adhérent', '@tracking_index') ?></li>
 						</ul>
 					</div>
 

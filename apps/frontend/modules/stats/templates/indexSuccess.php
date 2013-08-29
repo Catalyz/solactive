@@ -70,7 +70,7 @@
 					<table id="product-table" class="tablesorter" cellpadding="3" cellspacing="3" border="0" width="100%">
 					<thead>
 						<tr>
-							<th><span>Acteur</span></th>
+							<th><span>Adhérent</span></th>
 							<th><span>Stock</span></th>
 
 							<?php if ($to != null) {
@@ -110,13 +110,13 @@
 
             printf('<td><a id="click_%1$s" href="#map" onclick="map.setCenter(myLatlng%1$s); infowindow%1$s.open(map, marker%1$s);">%2$s</a>%3$s</td>', $actorId, $actorName, $link_details);
             printf('<td>%s</td>', $data['nombre']);
-            printf('<td align="right">%s sol%s  &nbsp;</td>', $data['transaction-value'], ($data['transaction-value'] > 1)?'s':'');
+            printf('<td align="right">%s %s  &nbsp;</td>', $data['transaction-value'], ($data['transaction-value'] > 1)?sfConfig::get('app_project_currency_plural'):sfConfig::get('app_project_currency_single'));
             if ($to != null) {
                 $totalTransac = $datas['totalTransaction'];
                 $percent = ($data['transaction-count'] * 100) / $totalTransac;
                 printf('<td>%s</td>', $data['transaction-count']);
                 printf('<td>%s%%</td>', number_format($percent, 0, ',', ' '));
-                printf('<td align="right">%s sols &nbsp;</td>', $data['average-transaction-value']);
+                printf('<td align="right">%s %s &nbsp;</td>', $data['average-transaction-value'], sfConfig::get('app_project_currency_plural'));
             }
             echo '</tr>';
             $cpt++;

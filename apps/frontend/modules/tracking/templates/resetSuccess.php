@@ -1,5 +1,5 @@
 <?php slot('title') ?>
-<h1>Retrait de coupons</h1>
+<h1>Dépôt de coupons</h1>
 <?php end_slot() ?>
 <table border="0" width="100%" cellpadding="0" cellspacing="0">
 	<tr valign="top">
@@ -7,7 +7,7 @@
 			<!--  start step-holder
 			<div id="step-holder">
 				<div class="step-no-off">1</div>
-				<div class="step-light-left"><a href="<?php echo url_for('@tracking_index') ?>">Choix de l'acteur</a></div>
+				<div class="step-light-left"><a href="<?php echo url_for('@tracking_index') ?>">Choix de l'adhérent</a></div>
 				<div class="step-light-right">&nbsp;</div>
 				<div class="step-no">2</div>
 				<div class="step-dark-left">Saisie des coupons</div>
@@ -25,7 +25,7 @@
 						<form onsubmit="return handleScan();" action="#"><input type="text" name="code" id="scanCode" /></form>
 					</td>
 					<td>&nbsp;</td>
-					<td>Sols scann&eacute;s: <span id="sum">0</span> sols</td>
+					<td><?php echo sfConfig::get('app_project_currency_plural') ?> scann&eacute;s: <span id="sum">0</span> <?php echo sfConfig::get('app_project_currency_plural') ?></td>
 				</tr>
 
 
@@ -57,7 +57,7 @@
 					<div class="right">
 						<h5>Effectuer une saisie</h5>
 						<ul class="greyarrow">
-							<li><?php echo link_to('Saisir pour un acteur', '@tracking_index') ?></li>
+							<li><?php echo link_to('Saisir pour un adhérent', '@tracking_index') ?></li>
 						</ul>
 					</div>
 

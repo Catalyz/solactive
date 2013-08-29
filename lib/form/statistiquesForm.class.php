@@ -13,7 +13,7 @@ class statistiquesForm extends sfForm {
 
 
         $this->setWidgets(array(
-                'actor' => new sfWidgetFormChoice(array('label' => 'Acteur', 'choices' => $actors), array('class' => 'inp-styledselect_form_1')),
+                'actor' => new sfWidgetFormChoice(array('label' => 'Adhérent', 'choices' => $actors), array('class' => 'inp-styledselect_form_1')),
                 'type' => new sfWidgetFormChoice(array('label' => 'Afficher sur la carte', 'choices' => $choices), array('class' => 'inp-styledselect_form_1')),
                 'date' => new czWidgetFormDate(array('label' => 'Afficher les statistiques du')),
                 'reference_date' => new czWidgetFormDate(array('label' => 'Comparer avec les statistiques du'))

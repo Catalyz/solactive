@@ -22,7 +22,7 @@ class exportForm extends sfForm {
             );
 
 		if ($sfUser->hasCredential('root')) {
-            $widgets['operator'] = new sfWidgetFormInputText(array('label' => 'Opérateur'), array('class' => 'inp-form'));
+            $widgets['operator'] = new sfWidgetFormInputText(array('label' => 'Agence'), array('class' => 'inp-form'));
             $defaults['operator'] = '';
         } else {
             $widgets['operator'] = new sfWidgetFormInputHidden(array('label' => false));
@@ -30,7 +30,7 @@ class exportForm extends sfForm {
         }
         $validators['operator'] = new czValidatorActor(array('required' => false));
 
-        $widgets['actor'] = new sfWidgetFormInputText(array('label' => 'Acteur'), array('class' => 'inp-form'));
+        $widgets['actor'] = new sfWidgetFormInputText(array('label' => 'Adhérent'), array('class' => 'inp-form'));
         $validators['actor'] = new czValidatorActor(array('required' => false));
         $defaults['actor'] = '';
 

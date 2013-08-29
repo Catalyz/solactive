@@ -20,7 +20,7 @@
 
 	<!-- start logo -->
 	<div id="logo">
-		<?php echo link_to(image_tag('shared/logo_fr.png', array('alt' => 'logo')), '@homepage'); ?>
+	<?php include_partial('global/header') ?>
 	</div>
 	<!-- end logo -->
 	<div style="float: right; color: #FFFFFF; margin-top: 50px; margin-right: 15px; text-align: right;">
@@ -61,13 +61,13 @@
 		<div class="table">
 		<?php if ($sf_user->hasCredential('tracking')): ?>
 		<ul class="<?php echo ('tracking' == $sf_context->getModuleName()
-				&& in_array($sf_context->getActionName(), array('index', 'record')))?'current':'select' ?>"><li><?php echo link_to('<b>Traçabilité</b>', '@tracking_index'); ?></li></ul>
+				&& in_array($sf_context->getActionName(), array('index', 'record')))?'current':'select' ?>"><li><?php echo link_to('<b>Retrait</b>', '@tracking_index'); ?></li></ul>
 		<?php endif ?>
 
 		<?php if ($sf_user->hasCredential('tracking_advanced')): ?>
 		<div class="nav-divider">&nbsp;</div>
 		<ul class="<?php echo ('tracking' == $sf_context->getModuleName()
-			&& in_array($sf_context->getActionName(), array('reset')))?'current':'select' ?>"><li><?php echo link_to('<b>Retrait</b>', '@tracking_reset'); ?></li></ul>
+			&& in_array($sf_context->getActionName(), array('reset')))?'current':'select' ?>"><li><?php echo link_to('<b>Dépôt</b>', '@tracking_reset'); ?></li></ul>
 		<?php endif ?>
 
 		<?php if ($sf_user->hasCredential('stats')): ?>
@@ -81,10 +81,10 @@
 		<?php endif ?>
 
 		<div class="nav-divider">&nbsp;</div>
-		<ul class="select"><li><?php echo link_to('<b>Nouvel adhérent</b>', sfConfig::get('app_solviolette_newaccount_url'), array('target' => '_blank')); ?></li></ul>
+		<ul class="select"><li><?php printf('<a href="%s" target="_blank"><b>Nouvel adhérent</b></a>', sfConfig::get('app_project_newaccount_url')); ?></li></ul>
 
 		<div class="nav-divider">&nbsp;</div>
-		<ul class="select"><li><?php echo link_to('<b>Sol-Violette.info</b>', 'http://www.sol-violette.fr/', array('target' => '_blank')); ?></li></ul>
+		<ul class="select"><li><?php printf('<a href="%s" target="_blank"><b>%s</b></a>', sfConfig::get('app_project_web_url'), sfConfig::get('app_project_web_caption')); ?></li></ul>
 
 		</div>
 		</div>
@@ -136,7 +136,7 @@
 			</tr>
 		</table>
 		<div class="clear">&nbsp;</div>
-		<center><?php echo image_tag('partners.png'); ?></center>
+		<center><?php echo image_tag(sfConfig::get('sf_environment').'/partners.png'); ?></center>
 	</div>
 	<!--  end content -->
 	<div class="clear">&nbsp;</div>
@@ -149,7 +149,7 @@
 <div id="footer">
 	<!--  start footer-left -->
 	<div id="footer-left">
-	&copy; Copyright Sol Violette. Tous droits réservés.</div>
+	&copy; Copyright <?php echo sfConfig::get('app_project_name') ?>. Tous droits réservés.</div>
 	<!--  end footer-left -->
 	<div class="clear">&nbsp;</div>
 </div>

@@ -17,7 +17,7 @@ use_javascripts_for_form($form);
 
 	<!-- start logo -->
 	<div id="logo-login">
-		<?php echo link_to(image_tag('shared/logo_fr.png', array('alt' => 'logo')), '@homepage'); ?>
+	<?php include_partial('global/header') ?>
 	</div>
 	<!-- end logo -->
 

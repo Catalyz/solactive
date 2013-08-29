@@ -1495,6 +1495,15 @@ label	{
 	height: 35px;
 	margin: 145px 0 0 15px;
 	}
+
+#logo-login h1 a, #logo h1 a{
+	color: #FFFFFF;
+}
+
+#logo-login p a, #logo p a{
+	color: #FFFFFF;
+}
+
 a.forgot-pwd	{
 	bottom: 30px;
 	color: #161616;
@@ -1625,4 +1634,9 @@ th.headerSortUp span{
 }
 th.headerSortDown span{
     background-image: url(/images/table/desc.gif);
+}
+
+
+.hide {
+	display: none;
 }

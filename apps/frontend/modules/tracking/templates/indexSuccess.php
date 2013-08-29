@@ -7,7 +7,7 @@
 			<!--  start step-holder -->
 			<div id="step-holder">
 				<div class="step-no">1</div>
-				<div class="step-dark-left"><a href="<?php echo url_for('@tracking_index') ?>">Choix de l'acteur</a></div>
+				<div class="step-dark-left"><a href="<?php echo url_for('@tracking_index') ?>">Choix de l'adhérent</a></div>
 				<div class="step-dark-right">&nbsp;</div>
 				<div class="step-no-off">2</div>
 				<div class="step-light-left">Saisie des coupons</div>

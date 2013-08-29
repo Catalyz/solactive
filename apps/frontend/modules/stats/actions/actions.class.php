@@ -67,7 +67,7 @@ class statsActions extends sfActions {
 
         $return = array();
         foreach ($datas['datas'] as $actorId => $details) {
-            $return[$actorId]['Acteur'] = $userInfos[$actorId]['name'];
+            $return[$actorId]['Adhérent'] = $userInfos[$actorId]['name'];
             $return[$actorId]['Coupons'] = $details['nombre'];
             $return[$actorId]['Montant'] = $details['transaction-value'];
             if (isset($details['transaction-count'])) {

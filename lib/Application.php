@@ -47,8 +47,8 @@ class Application {
                         $item['valeur du coupon'] = (int)$Ticket['amount'];
                         $item['date d\'echeance'] = date('d/m/Y', strtotime($Ticket['expire_at']));
                         $item['date de derniere saisie'] = date('d/m/Y', strtotime($res['created_at']));
-                    	$item['acteur chez qui il est (nom)'] = $Actor['name'];
-                    	$item['acteur chez qui il est (tel)'] = $Actor['phone'];
+                    	$item['adhérent chez qui il est (nom)'] = $Actor['name'];
+                    	$item['adhérent chez qui il est (tel)'] = $Actor['phone'];
                         if ($Ticket['status'] == Ticket::STATUS_DISABLED) {
                             $item['etat du coupon'] = 'En banque';
                         } elseif ($Ticket['status'] == Ticket::STATUS_ENABLED && strtotime($Ticket['expire_at']) < time()) {

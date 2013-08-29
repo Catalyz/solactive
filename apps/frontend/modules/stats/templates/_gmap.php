@@ -30,18 +30,18 @@ if(!in_array($stats_type, array('transaction-count', 'average-transaction-value'
 
 		$actorName = Application::getActorName($allInfos[$item], $item);
 
-        $popupinfos = sprintf("<div style=\"height:80px;\"><b>Acteur :</b> %s<br/>",esc_js($actorName));
+        $popupinfos = sprintf("<div style=\"height:80px;\"><b>Adhérent :</b> %s<br/>",esc_js($actorName));
         $popupinfos .= sprintf("<b>Téléphone :</b> %s<br/>", isset($allInfos[$item])?$allInfos[$item]['phone']:'-');
         $popupinfos .= sprintf("<b>N° carte :</b> %s<br/>", isset($allInfos[$item])?$allInfos[$item]['card_no']:'-');
         $popupinfos .= sprintf("<b>Coupons :</b> %s<br/>", $details['nombre']);
-        $popupinfos .= sprintf("<b>Montant :</b> %s sols<br />", $details['transaction-value']);
+        $popupinfos .= sprintf("<b>Montant :</b> %s %s<br />", $details['transaction-value'], sfConfig::get('app_project_currency_plural'));
 
         if (!empty($details['transaction-count'])) {
             $popupinfos .= sprintf("<b>Transactions :</b> %s (%d%%)<br />", $details['transaction-count'],
             	number_format((100 * $details['transaction-count'])  / $datas['totalTransaction'], 0, ',', ' '));
         }
         if (!empty($details['average-transaction-value'])) {
-            $popupinfos .= sprintf("<b>Montant moyen :</b> %s sol%s<br />", $details['average-transaction-value'], ($details['average-transaction-value']>1)?'s':'');
+            $popupinfos .= sprintf("<b>Montant moyen :</b> %s %s<br />", $details['average-transaction-value'], ($details['average-transaction-value']>1)?sfConfig::get('app_project_currency_plural'):sfConfig::get('app_project_currency_single'));
         }
         $popupinfos .= '</div>';
 

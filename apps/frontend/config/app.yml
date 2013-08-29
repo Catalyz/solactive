@@ -2,6 +2,38 @@
 # http://www.symfony-project.org/reference/1_4/en/11-App
 
 # default values
-all:
-  solviolette:
+#galleco:
+shordeaux:
+  project:
+    name: 'Galléco'
+    baseline: 'Une monnaie...'
+    newaccount_url: 'http://www.galleco.fr/le-galleco/l-association'
+    db_host: 'localhost'
+    db_name: 'shordeaux_catalyz_solviolette'
+    db_login: 'root'
+    db_password: '3tu5ymog'
+    web_caption: 'Galléco'
+    web_url: 'http://www.galleco.fr'
+    currency_single: 'Galléco'
+    currency_plural: 'Gallécos'
+
+solviolette:
+  project:
+    name: 'Galléco'
+    baseline: 'Une monnaie...'
     newaccount_url: 'http://www.sol-violette.fr/sol-violette/inscription'
+    db_host: 'localhost'
+    db_name: 'shordeaux_catalyz_solviolette'
+    db_login: 'root'
+    db_password: '3tu5ymog'
+    web_caption: 'Sol-Violette.info'
+    web_url: 'http://www.sol-violette.fr/'
+    currency_single: 'Sol'
+    currency_plural: 'Sols'
+
+
+all:
+  project:
+    name: '<ProjectName>'
+    baseline: '<Baseline>'
+    newaccount_url: '#'

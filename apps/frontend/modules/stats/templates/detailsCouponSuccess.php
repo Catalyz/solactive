@@ -7,7 +7,7 @@
 <thead>
 	<th class="table-header-check-long">Date</th>
 	<th class="table-header-repeat line-left">Transaction</th>
-	<th class="table-header-options line-left">Acteur</th>
+	<th class="table-header-options line-left">Adhérent</th>
 </thead>
 <tbody>
 
