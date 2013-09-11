@@ -6,7 +6,7 @@ class ticketDetailsForm extends sfForm{
 
 		$this->setWidgets(array(
 		  'date'    => new czWidgetFormDate(array('label' => 'Le')),
-		  'operator'    => new sfWidgetFormInputText(array('label' => 'Opérateur'),array('class'=>'inp-form'))
+		  'operator'    => new sfWidgetFormInputText(array('label' => 'Agence'),array('class'=>'inp-form'))
 		));
 
 		$this->setValidators(array(
