@@ -7,13 +7,16 @@
  * 
  * @property integer $operator_id
  * @property integer $actor_id
+ * @property integer $is_remove_action
  * @property Doctrine_Collection $TicketTrackingEntry
  * 
  * @method integer             getOperatorId()          Returns the current record's "operator_id" value
  * @method integer             getActorId()             Returns the current record's "actor_id" value
+ * @method integer             getIsRemoveAction()      Returns the current record's "is_remove_action" value
  * @method Doctrine_Collection getTicketTrackingEntry() Returns the current record's "TicketTrackingEntry" collection
  * @method TicketTracking      setOperatorId()          Sets the current record's "operator_id" value
  * @method TicketTracking      setActorId()             Sets the current record's "actor_id" value
+ * @method TicketTracking      setIsRemoveAction()      Sets the current record's "is_remove_action" value
  * @method TicketTracking      setTicketTrackingEntry() Sets the current record's "TicketTrackingEntry" collection
  * 
  * @package    tracking.sol-violette.info
@@ -31,6 +34,10 @@ abstract class BaseTicketTracking extends sfDoctrineRecord
              'notnull' => true,
              ));
         $this->hasColumn('actor_id', 'integer', null, array(
+             'type' => 'integer',
+             'notnull' => true,
+             ));
+        $this->hasColumn('is_remove_action', 'integer', null, array(
              'type' => 'integer',
              'notnull' => true,
              ));

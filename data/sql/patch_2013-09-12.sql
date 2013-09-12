@@ -1,0 +1,1 @@
+ALTER TABLE `ticket_tracking` ADD `is_remove_action` INT NOT NULL AFTER `actor_id` ;

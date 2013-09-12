@@ -17,20 +17,27 @@
 			<!--  end step-holder -->
 
 			<div id="table-content">
+			<form onsubmit="return handleScan();" action="#">
 				<table cellpadding="3" cellspacing="3">
 				<tr>
+					<td>Adhérent</td>
+					<td>&nbsp;</td>
+					<td>
+						<input type="text" name="user" id="userCode" />
+					</td>
 					<td>Référence du coupon</td>
 					<td>&nbsp;</td>
 					<td>
-						<form onsubmit="return handleScan();" action="#"><input type="text" name="code" id="scanCode" /></form>
+						<input type="text" name="code" id="scanCode" />
 					</td>
 					<td>&nbsp;</td>
 					<td><?php echo sfConfig::get('app_project_currency_plural') ?> scann&eacute;s: <span id="sum">0</span> <?php echo sfConfig::get('app_project_currency_plural') ?></td>
+					<td><input type="submit" name="" value="Valider" /></td>
 				</tr>
 
 
 				</table>
-
+			</form>
 				<div id="log" style="padding-top: 10px;"></div>
 
 
@@ -137,7 +144,7 @@
 				error: function(jqXHR, textStatus, errorThrown){
 					alert('ko');
 				},
-				url: '<?php echo url_for('@tracking_ajax?session='.$TicketTracking->id); ?>?mode=reset&code=' + $('#scanCode').val(),
+				url: '<?php echo url_for('@tracking_ajax?session='.$TicketTracking->id); ?>?mode=reset&code=' + $('#scanCode').val() + '&user=' + $('#userCode').val(),
 				dataType: 'json'
 			});
 			$('#scanCode').val('');

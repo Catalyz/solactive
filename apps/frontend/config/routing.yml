@@ -25,6 +25,10 @@ tracking_reset:
   url:   /tracking/reset
   param: { module: tracking, action: reset }
 
+tracking_reset_step2:
+  url:   /tracking/reset-step2
+  param: { module: tracking, action: resetStep2 }
+
 tracking_ajax:
   url:   /tracking/ajax/:session
   param: { module: tracking, action: ajax }

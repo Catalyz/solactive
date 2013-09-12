@@ -35,6 +35,7 @@ TicketTracking:
   columns:
     operator_id:        { type: integer, notnull: true }
     actor_id:           { type: integer, notnull: true }
+    is_remove_action:   { type: integer, notnull: true }
 #  relations:
 #    ActorActor:         { onDelete: CASCADE, local: actor_id, foreign: id ,class: Actor}
 #    ActorOperator:      { onDelete: CASCADE, local: operator_id, foreign: id ,class: Actor}

@@ -21,6 +21,11 @@ class Ticket extends BaseTicket {
         	->fetchOne(array(), Doctrine_Core::HYDRATE_ARRAY);
 
         if ($result) {
+//        	echo '<pre>';
+//        	print_r($result); exit;
+        	if($result['TicketTracking']['is_remove_action']){
+        		return false;
+        	}
             return $result['TicketTracking']['actor_id'];
         }
 

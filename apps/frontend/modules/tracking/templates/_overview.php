@@ -4,6 +4,7 @@
 <tr>
 	<td width="150">Type</td>
 	<td width="150" bgcolor="#FFFF99">Mis en circulation</td>
+	<td width="150" bgcolor="#FFFF99">Déposés</td>
 	<td width="150" bgcolor="#D6E3BC" class="hide">Mis à jour</td>
 	<td width="150" bgcolor="#B8CCE4" class="hide">Confirmé</td>
 	<td width="150" bgcolor="#FFFF99" class="hide">Expiré</td>
@@ -13,6 +14,7 @@
 <tr>
 	<td><?php echo $amount; ?> <?php echo sfConfig::get('app_project_currency_single') ?></td>
 	<td bgcolor="#FFFF99"><?php echo $datas[$amount]['delivered']; ?></td>
+	<td bgcolor="#FFFF99"><?php echo $datas[$amount]['removed']; ?></td>
 	<td bgcolor="#D6E3BC" class="hide"><?php echo $datas[$amount]['updated']; ?></td>
 	<td bgcolor="#B8CCE4" class="hide"><?php echo $datas[$amount]['confirmed']; ?></td>
 	<td bgcolor="#FFFF99" class="hide"><?php echo $datas[$amount]['expired']; ?></td>
@@ -23,7 +25,12 @@
 	<td>Total en coupons</td>
 	<td bgcolor="#FFFF99"><?php $value = 0;
 foreach($amounts as $amount) {
-    $value += $datas[$amount]['delivered'];
+	$value += $datas[$amount]['delivered'];
+}
+echo $value; ?></td>
+	<td bgcolor="#FFFF99"><?php $value = 0;
+foreach($amounts as $amount) {
+	$value += $datas[$amount]['removed'];
 }
 echo $value; ?></td>
 	<td bgcolor="#D6E3BC" class="hide"><?php $value = 0;
@@ -51,7 +58,12 @@ echo $value; ?></td>
 	<td>Total en <?php echo sfConfig::get('app_project_currency_plural') ?></td>
 	<td bgcolor="#FFFF99"><?php $value = 0;
 foreach($amounts as $amount) {
-    $value += $datas[$amount]['delivered'] * $amount;
+	$value += $datas[$amount]['delivered'] * $amount;
+}
+echo $value; ?> <?php echo sfConfig::get('app_project_currency_plural') ?></td>
+	<td bgcolor="#FFFF99"><?php $value = 0;
+foreach($amounts as $amount) {
+	$value += $datas[$amount]['removed'] * $amount;
 }
 echo $value; ?> <?php echo sfConfig::get('app_project_currency_plural') ?></td>
 	<td bgcolor="#D6E3BC" class="hide"><?php $value = 0;

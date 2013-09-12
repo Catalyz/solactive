@@ -1,5 +1,5 @@
 <?php slot('title') ?>
-<h1>Traçabilité des coupons</h1>
+<h1><?php echo $title ?></h1>
 <?php end_slot() ?>
 <table border="0" width="100%" cellpadding="0" cellspacing="0">
 	<tr valign="top">
@@ -7,7 +7,7 @@
 			<!--  start step-holder -->
 			<div id="step-holder">
 				<div class="step-no">1</div>
-				<div class="step-dark-left"><a href="<?php echo url_for('@tracking_index') ?>">Choix de l'adhérent</a></div>
+				<div class="step-dark-left"><a href="<?php echo url_for($route_index) ?>">Choix de l'adhérent</a></div>
 				<div class="step-dark-right">&nbsp;</div>
 				<div class="step-no-off">2</div>
 				<div class="step-light-left">Saisie des coupons</div>
@@ -17,7 +17,7 @@
 			<!--  end step-holder -->
 
 			<div id="table-content">
-				<form class="trackerActorForm" method="post" action="<?php echo url_for('@tracking_index')?>" >
+				<form class="trackerActorForm" method="post" action="<?php echo url_for($route_index)?>" >
 					<table>
 						<tr>
 							<th><?php echo $form['login']->renderLabel() ?></th>

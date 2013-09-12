@@ -15,19 +15,21 @@ abstract class BaseTicketTrackingForm extends BaseFormDoctrine
   public function setup()
   {
     $this->setWidgets(array(
-      'id'          => new sfWidgetFormInputHidden(),
-      'operator_id' => new sfWidgetFormInputText(),
-      'actor_id'    => new sfWidgetFormInputText(),
-      'created_at'  => new sfWidgetFormDateTime(),
-      'updated_at'  => new sfWidgetFormDateTime(),
+      'id'               => new sfWidgetFormInputHidden(),
+      'operator_id'      => new sfWidgetFormInputText(),
+      'actor_id'         => new sfWidgetFormInputText(),
+      'is_remove_action' => new sfWidgetFormInputText(),
+      'created_at'       => new sfWidgetFormDateTime(),
+      'updated_at'       => new sfWidgetFormDateTime(),
     ));
 
     $this->setValidators(array(
-      'id'          => new sfValidatorChoice(array('choices' => array($this->getObject()->get('id')), 'empty_value' => $this->getObject()->get('id'), 'required' => false)),
-      'operator_id' => new sfValidatorInteger(),
-      'actor_id'    => new sfValidatorInteger(),
-      'created_at'  => new sfValidatorDateTime(),
-      'updated_at'  => new sfValidatorDateTime(),
+      'id'               => new sfValidatorChoice(array('choices' => array($this->getObject()->get('id')), 'empty_value' => $this->getObject()->get('id'), 'required' => false)),
+      'operator_id'      => new sfValidatorInteger(),
+      'actor_id'         => new sfValidatorInteger(),
+      'is_remove_action' => new sfValidatorInteger(),
+      'created_at'       => new sfValidatorDateTime(),
+      'updated_at'       => new sfValidatorDateTime(),
     ));
 
     $this->widgetSchema->setNameFormat('ticket_tracking[%s]');

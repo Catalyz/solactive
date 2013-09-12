@@ -93,10 +93,11 @@ class exportsActions extends sfActions {
                         $operator = $userInfos[$TicketTrackingEntry['TicketTracking']['operator_id']];
                         $actor = $userInfos[$TicketTrackingEntry['TicketTracking']['actor_id']];
 
-                        $return[$key][utf8_decode('adhérent ayant effectué la saisie (tel)')] = $operator['phone'];
-                        $return[$key][utf8_decode('adhérent ayant effectué la saisie (nom)')] = $operator['name'];
-                        $return[$key][utf8_decode('adhérent chez qui est le coupon (tel)')] = $actor['phone'];
-                        $return[$key][utf8_decode('adhérent chez qui est le coupon (nom)')] = $actor['name'];
+                        $return[$key][utf8_decode('agence ayant effectué la saisie (tel)')] = $operator['phone'];
+                        $return[$key][utf8_decode('agence ayant effectué la saisie (nom)')] = $operator['name'];
+                        $return[$key][utf8_decode('adhérent concerné (tel)')] = $actor['phone'];
+                        $return[$key][utf8_decode('adhérent concerné (nom)')] = $actor['name'];
+                        $return[$key][utf8_decode('type')] = $TicketTrackingEntry['TicketTracking']['is_remove_action']?'Dépôt':'Retrait';
                         $return[$key][utf8_decode('date de transaction')] = date('d/m/Y', strtotime($TicketTrackingEntry['created_at']));
                         switch ($TicketTrackingEntry['status']) {
                             case TicketTrackingEntry::STATUS_UPDATED :

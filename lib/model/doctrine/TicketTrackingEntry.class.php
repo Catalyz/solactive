@@ -17,6 +17,7 @@ class TicketTrackingEntry extends BaseTicketTrackingEntry
 	const STATUS_CONFIRMED = 2;
 	const STATUS_NEW = 3;
 	const STATUS_EXPIRED = 4;
+	const STATUS_REMOVED = 5;
 
 
 }

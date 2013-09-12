@@ -1,5 +1,5 @@
 <?php slot('title') ?>
-<h1>Traçabilité des coupons - <?php echo $Actor['name']; ?></h1>
+<h1><?php echo $title ?> - <?php echo $Actor['name']; ?></h1>
 <?php end_slot() ?>
 <table border="0" width="100%" cellpadding="0" cellspacing="0">
 	<tr valign="top">
@@ -7,14 +7,11 @@
 			<!--  start step-holder -->
 			<div id="step-holder">
 				<div class="step-no-off">1</div>
-				<div class="step-light-left"><a href="<?php echo url_for('@tracking_index') ?>">Choix de l'adhérent</a></div>
+				<div class="step-light-left"><a href="<?php echo url_for($route_index) ?>">Choix de l'adhérent</a></div>
 				<div class="step-light-right">&nbsp;</div>
 				<div class="step-no">2</div>
 				<div class="step-dark-left">Saisie des coupons</div>
-				<div class="step-dark-right">&nbsp;</div>
-				<div class="step-no">3</div>
-				<div class="step-light-left">Bon de saisie</div>
-				<div class="step-light-round">&nbsp;</div>
+				<div class="step-dark-round">&nbsp;</div>
 				<div class="clear"></div>
 			</div>
 			<!--  end step-holder -->
@@ -64,7 +61,7 @@
 						<h5>Effectuer une autre saisie</h5>
 						Une fois la saisie terminée pour cet adhérent, vous pouvez effectuer une nouvelle saisie.
 						<ul class="greyarrow">
-							<li><?php echo link_to('Saisir pour un autre adhérent', '@tracking_index') ?></li>
+							<li><?php echo link_to('Saisir pour un autre adhérent', $route_index) ?></li>
 						</ul>
 					</div>
 
@@ -108,6 +105,15 @@
 						+'<tr>'
 						+'	<td class="blue-left"><b>' + data.code + '</'+'b> ' + data.message + '</'+'td>'
 						+'	<td class="blue-right"><a class="close-blue"><?php echo image_tag('table/icon_close_blue.gif'); ?></'+'a></'+'td>'
+						+'</'+'tr>'
+						+'</'+'table>'
+						+'</'+'div>');
+					}else if('REMOVED' == data.status){
+						$('#log').prepend('<div class="message-yellow">'
+						+'<table border="0" width="100%" cellpadding="0" cellspacing="0">'
+						+'<tr>'
+						+'	<td class="blue-left"><b>' + data.code + '</'+'b> ' + data.message + '</'+'td>'
+						+'	<td class="blue-right"><a class="close-yellow"><?php echo image_tag('table/icon_close_yellow.gif'); ?></'+'a></'+'td>'
 						+'</'+'tr>'
 						+'</'+'table>'
 						+'</'+'div>');
@@ -157,7 +163,7 @@
 				error: function(jqXHR, textStatus, errorThrown){
 					alert('ko');
 				},
-				url: '<?php echo url_for('@tracking_ajax?session='.$TicketTracking->id); ?>?mode=normal&code=' + $('#scanCode').val(),
+				url: '<?php echo url_for('@tracking_ajax?session='.$TicketTracking->id); ?>?code=' + $('#scanCode').val(),
 				dataType: 'json'
 			});
 			$('#scanCode').val('');

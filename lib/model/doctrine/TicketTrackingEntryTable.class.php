@@ -55,7 +55,9 @@ class TicketTrackingEntryTable extends Doctrine_Table {
 
         $TicketTrackingEntry = new TicketTrackingEntry();
         $TicketTrackingEntry->setTicketId($ticket->id);
-        $TicketTrackingEntry->setTicketTrackingId($tickectTrackingId);
+
+    	$ticketTracking = /*(TicketTracking)*/Doctrine::getTable('TicketTracking')->findOneById($tickectTrackingId);
+    	$TicketTrackingEntry->setTicketTracking($ticketTracking);
 
         $result = array();
         try {
@@ -71,13 +73,16 @@ class TicketTrackingEntryTable extends Doctrine_Table {
 //                    $ticket->setStatus(Ticket::STATUS_DISABLED);
 //                    $ticket->save();
 //                } else {
-                    if ($lastOwnerId == $ActorId) {
-                        $TicketTrackingEntry->status = TicketTrackingEntry::STATUS_CONFIRMED;
+                    if ($ticketTracking->getIsRemoveAction()) {
+                    	$TicketTrackingEntry->status = TicketTrackingEntry::STATUS_REMOVED;
+                    }elseif($lastOwnerId == $ActorId){
+                    	$TicketTrackingEntry->status = TicketTrackingEntry::STATUS_CONFIRMED;
                     } else {
-                        $TicketTrackingEntry->status = TicketTrackingEntry::STATUS_UPDATED;
+                    	$TicketTrackingEntry->status = TicketTrackingEntry::STATUS_UPDATED;
+
                         //$lastExpired = strtotime($ticket->expire_at);
                     //    $ticket->setExpireAt(date('Y-m-d', strtotime('+ 3 month')));
-                        $ticket->save();
+                  //      $ticket->save();
 //                    }
                 }
             } else { // le ticket n'était pas encore enregistré
@@ -106,9 +111,14 @@ class TicketTrackingEntryTable extends Doctrine_Table {
                     $result['message'] = sprintf('Ce coupon de %d %s viens d\'etre mis en circulation', $ticket->amount, ($ticket->amount > 1)?sfConfig::get('app_project_currency_plural'):sfConfig::get('app_project_currency_single'));
                     break;
                 case TicketTrackingEntry::STATUS_UPDATED:
-                    $result['status'] = 'UPDATED';
-                    $result['message'] = sprintf('Ce coupon de %d %s était chez un autre adhérent', $ticket->amount, ($ticket->amount > 1)?sfConfig::get('app_project_currency_plural'):sfConfig::get('app_project_currency_single'));
-                    break;
+            	$result['status'] = 'UPDATED';
+            	$result['message'] = sprintf('Ce coupon de %d %s était chez un autre adhérent', $ticket->amount, ($ticket->amount > 1)?sfConfig::get('app_project_currency_plural'):sfConfig::get('app_project_currency_single'));
+            	break;
+                case TicketTrackingEntry::STATUS_REMOVED:
+            	$result['status'] = 'REMOVED';
+            	$result['message'] = sprintf('Ce coupon de %d %s a été déposé', $ticket->amount, ($ticket->amount > 1)?sfConfig::get('app_project_currency_plural'):sfConfig::get('app_project_currency_single'));
+            	break;
+
             } // switch
         }
         catch(Exception $e) {

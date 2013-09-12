@@ -67,7 +67,7 @@
 		<?php if ($sf_user->hasCredential('tracking_advanced')): ?>
 		<div class="nav-divider">&nbsp;</div>
 		<ul class="<?php echo ('tracking' == $sf_context->getModuleName()
-			&& in_array($sf_context->getActionName(), array('reset')))?'current':'select' ?>"><li><?php echo link_to('<b>Dépôt</b>', '@tracking_reset'); ?></li></ul>
+			&& in_array($sf_context->getActionName(), array('reset', 'resetStep2')))?'current':'select' ?>"><li><?php echo link_to('<b>Dépôt</b>', '@tracking_reset'); ?></li></ul>
 		<?php endif ?>
 
 		<?php if ($sf_user->hasCredential('stats')): ?>

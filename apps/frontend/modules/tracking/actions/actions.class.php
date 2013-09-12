@@ -22,6 +22,8 @@ class trackingActions extends sfActions {
                 $this->form->getWidget('login')->setAttribute('class', 'inp-form-error');
             }
         }
+    	$this->title = 'Traçabilité des coupons';
+    	$this->route_index = '@tracking_index';
     }
     public function executeRecord(sfWebRequest $request)
     {
@@ -31,22 +33,55 @@ class trackingActions extends sfActions {
         $this->TicketTracking->setOperatorId($user->getAttribute('operator.id'));
         $actor = $user->getAttribute('actor');
         $this->TicketTracking->setActorId($actor['id']);
+    	$this->TicketTracking->setIsRemoveAction(false);
         $this->TicketTracking->save();
 
         $this->Actor = $user->getAttribute('actor');
 
 		$user->setAttribute('datas', array());
+    	$user->setAttribute('scan_stats', array());
+    	$this->route_index = '@tracking_index';
+    	$this->title = 'Traçabilité des coupons';
 
         // $this->Actor->name=$user->getAttribute('actor')->name;
     }
-    public function executeReset(sfWebRequest $request)
+	public function executeReset(sfWebRequest $request)
+	{
+		$this->form = new trackingActorForm();
+		if ($request->isMethod('post')) {
+			$this->form->bind($request->getParameter($this->form->getName()));
+			if ($this->form->isValid()) {
+				$values = $this->form->getValues();
+				$this->getUser()->setAttribute('actor', $values['login']);
+				$this->redirect('@tracking_reset_step2');
+			} else {
+				$this->form->getWidget('login')->setAttribute('class', 'inp-form-error');
+			}
+		}
+		$this->title = 'Dépôt de coupons';
+		$this->route_index = '@tracking_reset';
+		$this->setTemplate('index');
+	}
+	public function executeResetStep2(sfWebRequest $request)
     {
-        $user =/*(myUser)*/ $this->getUser();
+    	$user =/*(myUser)*/ $this->getUser();
 
-        $this->TicketTracking = new TicketTracking();
-        $this->TicketTracking->setOperatorId($user->getAttribute('operator.id'));
-        $this->TicketTracking->setActorId(0);
-        $this->TicketTracking->save();
+    	$this->TicketTracking = new TicketTracking();
+    	$this->TicketTracking->setOperatorId($user->getAttribute('operator.id'));
+    	$actor = $user->getAttribute('actor');
+    	$this->TicketTracking->setActorId($actor['id']);
+    	$this->TicketTracking->setIsRemoveAction(true);
+    	$this->TicketTracking->save();
+
+    	$this->Actor = $user->getAttribute('actor');
+
+    	$user->setAttribute('datas', array());
+		$user->setAttribute('scan_stats', array());
+		$this->route_index = '@tracking_reset';
+			$this->title = 'Dépôt de coupons';
+			$this->setTemplate('record');
+
+    	// $this->Actor->name=$user->getAttribute('actor')->name;
     }
     public function executeAjax(sfWebRequest $request)
     {
@@ -72,12 +107,8 @@ class trackingActions extends sfActions {
 
     		$result = array();
     		if ($ticket) {
-    			if ('reset' == $request->getParameter('mode') && $user->hasCredential('tracking_advanced')) {
-    				$result = TicketTrackingEntryTable::getInstance()->createTicketTrackingEntryAsReset($request->getParameter('session'), $ticket);
-    			} else {
-    				$actor = $user->getAttribute('actor');
-    				$result = TicketTrackingEntryTable::getInstance()->createTicketTrackingEntry($request->getParameter('session'), $ticket, $actor['id']);
-    			}
+   				$actor = $user->getAttribute('actor');
+   				$result = TicketTrackingEntryTable::getInstance()->createTicketTrackingEntry($request->getParameter('session'), $ticket, $actor['id']);
     			$result['amount'] = $ticket->amount;
     		}else{
     			$result['amount'] = 0;
@@ -88,7 +119,7 @@ class trackingActions extends sfActions {
 
     		$datas = $user->getAttribute('datas');
     		if(!isset($datas[(int)$ticket->amount])){
-    			foreach(array('delivered', 'updated', 'confirmed', 'expired') as $status){
+    			foreach(array('delivered', 'updated', 'confirmed', 'expired', 'removed') as $status){
     				$datas[(int)$ticket->amount][$status] = 0;
     			}
     		}
@@ -103,8 +134,11 @@ class trackingActions extends sfActions {
     				$datas[(int)$result['amount']]['delivered']++;
     				break;
     			case 'EXPIRED':
-    			$datas[(int)$result['amount']]['expired']++;
-    			break;
+    				$datas[(int)$result['amount']]['expired']++;
+    				break;
+    			case 'REMOVED':
+    				$datas[(int)$result['amount']]['removed']++;
+    				break;
     			case 'ERROR':
     			case 'IGNORE':
     			//$datas[(int)$result['amount']]['confirmed']++;
