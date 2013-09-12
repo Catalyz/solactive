@@ -29,16 +29,16 @@ class TicketTrackingEntryTable extends Doctrine_Table {
             $lastOwnerId = $ticket->getLastOwner();
             if ($lastOwnerId) {
                 $TicketTrackingEntry->status = TicketTrackingEntry::STATUS_EXPIRED;
-           //     $ticket->setExpireAt(date('Y-m-d', mktime(0, 0, 0, 12, 31, date('Y'))));
+                // $ticket->setExpireAt(date('Y-m-d', mktime(0, 0, 0, 12, 31, date('Y'))));
                 $ticket->setStatus(Ticket::STATUS_DISABLED);
 
-            	$result['status'] = 'EXPIRED';
-            	$result['message'] = sprintf('Ce coupon de %d %s été retiré', $ticket->amount, ($ticket->amount > 1)?sfConfig::get('app_project_currency_plural'):sfConfig::get('app_project_currency_single'));
+                $result['status'] = 'EXPIRED';
+                $result['message'] = sprintf('Ce coupon de %d %s été retiré', $ticket->amount, ($ticket->amount > 1)?sfConfig::get('app_project_currency_plural'):sfConfig::get('app_project_currency_single'));
             } else { // le ticket n'était pas encore enregistré
                 throw new Exception('Ce coupon n\'est pas en circulation et ne peut pas être retiré.');
             }
-        	$ticket->save();
-        	$TicketTrackingEntry->save();
+            $ticket->save();
+            $TicketTrackingEntry->save();
         }
         catch(Exception $e) {
             $result['status'] = 'ERROR';
@@ -56,34 +56,36 @@ class TicketTrackingEntryTable extends Doctrine_Table {
         $TicketTrackingEntry = new TicketTrackingEntry();
         $TicketTrackingEntry->setTicketId($ticket->id);
 
-    	$ticketTracking = /*(TicketTracking)*/Doctrine::getTable('TicketTracking')->findOneById($tickectTrackingId);
-    	$TicketTrackingEntry->setTicketTracking($ticketTracking);
+        $ticketTracking =/*(TicketTracking)*/ Doctrine::getTable('TicketTracking')->findOneById($tickectTrackingId);
+        $TicketTrackingEntry->setTicketTracking($ticketTracking);
 
         $result = array();
+//        var_dump($ticketTracking->getIsRemoveAction());
+//        var_dump($ticket->getStatus());
+//        exit;
+        if ($ticketTracking->getIsRemoveAction()) {
+            if ($ticket->getStatus() == Ticket::STATUS_DISABLED) {
+                $result['status'] = 'ERROR';
+                $result['message'] = 'Ce coupon n\'est pas en circulation, il ne peut pas être déposé.';
+                return $result;
+            } else {
+                $TicketTrackingEntry->status = TicketTrackingEntry::STATUS_REMOVED;
+                $TicketTrackingEntry->save();
+                $ticket->setStatus(Ticket::STATUS_DISABLED);
+                $ticket->save();
+                $result['status'] = 'REMOVED';
+                $result['message'] = sprintf('Ce coupon de %d %s a été déposé', $ticket->amount, ($ticket->amount > 1)?sfConfig::get('app_project_currency_plural'):sfConfig::get('app_project_currency_single'));
+                return $result;
+            }
+        }
+
         try {
             $lastOwnerId = $ticket->getLastOwner();
             if ($lastOwnerId) {
-//                if (strtotime($ticket->expire_at) < time()) {
-//                    if (!$sfUser->hasCredential($credentialName)) {
-//                        throw new Exception(sprintf('Ce ticket a expiré le %s, il doit être repris', date('d/m/Y', strtotime($ticket->expire_at))));
-//                    }
-//
-//                    $TicketTrackingEntry->status = TicketTrackingEntry::STATUS_EXPIRED;
-//                    $ticket->setExpireAt(date('Y-m-d', mktime(0, 0, 0, 12, 31, date('Y'))));
-//                    $ticket->setStatus(Ticket::STATUS_DISABLED);
-//                    $ticket->save();
-//                } else {
-                    if ($ticketTracking->getIsRemoveAction()) {
-                    	$TicketTrackingEntry->status = TicketTrackingEntry::STATUS_REMOVED;
-                    }elseif($lastOwnerId == $ActorId){
-                    	$TicketTrackingEntry->status = TicketTrackingEntry::STATUS_CONFIRMED;
-                    } else {
-                    	$TicketTrackingEntry->status = TicketTrackingEntry::STATUS_UPDATED;
-
-                        //$lastExpired = strtotime($ticket->expire_at);
-                    //    $ticket->setExpireAt(date('Y-m-d', strtotime('+ 3 month')));
-                  //      $ticket->save();
-//                    }
+                if ($lastOwnerId == $ActorId) {
+                    $TicketTrackingEntry->status = TicketTrackingEntry::STATUS_CONFIRMED;
+                } else {
+                    $TicketTrackingEntry->status = TicketTrackingEntry::STATUS_UPDATED;
                 }
             } else { // le ticket n'était pas encore enregistré
                 if (!$sfUser->hasCredential($credentialName)) {
@@ -93,8 +95,8 @@ class TicketTrackingEntryTable extends Doctrine_Table {
                 $TicketTrackingEntry->status = TicketTrackingEntry::STATUS_NEW;
                 // le ticket sort de la banque on le passe donc en enabled
                 $ticket->setStatus(Ticket::STATUS_ENABLED);
-            //	$ticket->setExpireAt(date('Y-m-d', strtotime('+ 3 month')));
-            	$ticket->save();
+                // $ticket->setExpireAt(date('Y-m-d', strtotime('+ 3 month')));
+                $ticket->save();
             }
             $TicketTrackingEntry->save();
             switch ($TicketTrackingEntry->status) {
@@ -108,17 +110,16 @@ class TicketTrackingEntryTable extends Doctrine_Table {
                     break;
                 case TicketTrackingEntry::STATUS_NEW:
                     $result['status'] = 'UNKNOWN';
-                    $result['message'] = sprintf('Ce coupon de %d %s viens d\'etre mis en circulation', $ticket->amount, ($ticket->amount > 1)?sfConfig::get('app_project_currency_plural'):sfConfig::get('app_project_currency_single'));
+                    $result['message'] = sprintf('Ce coupon de %d %s vient d\'etre mis en circulation', $ticket->amount, ($ticket->amount > 1)?sfConfig::get('app_project_currency_plural'):sfConfig::get('app_project_currency_single'));
                     break;
                 case TicketTrackingEntry::STATUS_UPDATED:
-            	$result['status'] = 'UPDATED';
-            	$result['message'] = sprintf('Ce coupon de %d %s était chez un autre adhérent', $ticket->amount, ($ticket->amount > 1)?sfConfig::get('app_project_currency_plural'):sfConfig::get('app_project_currency_single'));
-            	break;
-                case TicketTrackingEntry::STATUS_REMOVED:
-            	$result['status'] = 'REMOVED';
-            	$result['message'] = sprintf('Ce coupon de %d %s a été déposé', $ticket->amount, ($ticket->amount > 1)?sfConfig::get('app_project_currency_plural'):sfConfig::get('app_project_currency_single'));
-            	break;
-
+                    $result['status'] = 'UPDATED';
+                    $result['message'] = sprintf('Ce coupon de %d %s était chez un autre adhérent', $ticket->amount, ($ticket->amount > 1)?sfConfig::get('app_project_currency_plural'):sfConfig::get('app_project_currency_single'));
+                    break;
+                    // case TicketTrackingEntry::STATUS_REMOVED:
+                    // $result['status'] = 'REMOVED';
+                    // $result['message'] = sprintf('Ce coupon de %d %s a été déposé', $ticket->amount, ($ticket->amount > 1)?sfConfig::get('app_project_currency_plural'):sfConfig::get('app_project_currency_single'));
+                    // break;
             } // switch
         }
         catch(Exception $e) {

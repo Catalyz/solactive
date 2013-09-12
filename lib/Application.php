@@ -45,14 +45,12 @@ class Application {
                         $item['date de creation du coupon'] = date('d/m/Y', strtotime($Ticket['created_at']));
                         $item['code a bulle'] = $Ticket['bubble_tag'];
                         $item['valeur du coupon'] = (int)$Ticket['amount'];
-                        $item['date d\'echeance'] = date('d/m/Y', strtotime($Ticket['expire_at']));
+                       // $item['date d\'echeance'] = date('d/m/Y', strtotime($Ticket['expire_at']));
                         $item['date de derniere saisie'] = date('d/m/Y', strtotime($res['created_at']));
                     	$item['adhérent chez qui il est (nom)'] = $Actor['name'];
                     	$item['adhérent chez qui il est (tel)'] = $Actor['phone'];
                         if ($Ticket['status'] == Ticket::STATUS_DISABLED) {
                             $item['etat du coupon'] = 'En banque';
-                        } elseif ($Ticket['status'] == Ticket::STATUS_ENABLED && strtotime($Ticket['expire_at']) < time()) {
-                            $item['etat du coupon'] = 'Expire';
                         } else {
                             $item['etat du coupon'] = 'En circulation';
                         }

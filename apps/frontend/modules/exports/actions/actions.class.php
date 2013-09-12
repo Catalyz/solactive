@@ -107,8 +107,11 @@ class exportsActions extends sfActions {
                                 $state = utf8_decode('Confirmé');
                                 break;
                             case TicketTrackingEntry::STATUS_NEW:
-                                $state = utf8_decode('Mis en circulation');
-                                break;
+                            	$state = utf8_decode('Mis en circulation');
+                            	break;
+                            case TicketTrackingEntry::STATUS_REMOVED:
+                            	$state = utf8_decode('Déposé');
+                            	break;
                             default:// STATUS_EXPIRED
                                 $state = utf8_decode('Expiré');
                         } // switch
