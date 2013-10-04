@@ -21,7 +21,7 @@ class exportForm extends sfForm {
             'to' => time()
             );
 
-		if ($sfUser->hasCredential('root')) {
+		if ($sfUser->hasCredential('admin')) {
             $widgets['operator'] = new sfWidgetFormInputText(array('label' => 'Agence'), array('class' => 'inp-form'));
             $defaults['operator'] = '';
 		} else {
