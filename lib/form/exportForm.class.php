@@ -24,11 +24,11 @@ class exportForm extends sfForm {
 		if ($sfUser->hasCredential('root')) {
             $widgets['operator'] = new sfWidgetFormInputText(array('label' => 'Agence'), array('class' => 'inp-form'));
             $defaults['operator'] = '';
-			$validators['operator'] = new czValidatorActor(array('required' => false));
 		} else {
             $widgets['operator'] = new sfWidgetFormInputHidden(array('label' => false));
-            $defaults['operator'] = $sfUser->getAttribute('operator.phone');
+            $defaults['operator'] = preg_replace('/[^0-9]/', '', $sfUser->getAttribute('operator.phone'));
         }
+    	$validators['operator'] = new czValidatorActor(array('required' => false));
 
         $widgets['actor'] = new sfWidgetFormInputText(array('label' => 'Adhérent'), array('class' => 'inp-form'));
         $validators['actor'] = new czValidatorActor(array('required' => false));
