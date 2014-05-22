@@ -50,8 +50,8 @@ class exportsActions extends sfActions {
                     // $q2->addOrderBy('e.created_at DESC');
 
                     // $rr = $q2->execute(array(), Doctrine_Core::HYDRATE_ARRAY);
-                    if (!empty($values['actor'])) { // un acteur en particulier
-                        $data = Application::getTicketStats($date, $values['actor']['id']);
+                    if (!empty($values['operator'])) { // un acteur en particulier
+                        $data = Application::getTicketStats($date, null, $values['operator']['id']);
                     } else {
                         $data = Application::getTicketStats($date);
                     }

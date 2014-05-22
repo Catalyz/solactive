@@ -1,7 +1,7 @@
 <?php
 
 class Application {
-    static public function getTicketStats($when = null, $restrictToActorId = null)
+    static public function getTicketStats($when = null, $restrictToActorId = null, $restrictToOperatorId = null)
     {
         if (null == $when) {
             $when = date('Y-m-d');
@@ -39,7 +39,7 @@ class Application {
                     $Ticket = $res['Ticket'];
                     $Actor = $allUsers[$res['TicketTracking']['actor_id']];
 
-                    if (!$restrictToActorId || ($restrictToActorId == $res['TicketTracking']['actor_id'])) {
+                    if ((!$restrictToActorId || ($restrictToActorId == $res['TicketTracking']['actor_id'])) || (!$restrictToOperatorId || ($restrictToOperatorId == $res['TicketTracking']['operator_id']))) {
                         $item = array();
 
                         $item['date de creation du coupon'] = date('d/m/Y', strtotime($Ticket['created_at']));
