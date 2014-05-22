@@ -86,8 +86,7 @@ class trackingActions extends sfActions {
     public function executeAjax(sfWebRequest $request)
     {
         $user =/*(myUser)*/ $this->getUser();
-        $ticket = /*(Ticket)*/Doctrine::getTable('ticket')->findOneByBubbleTag($request->getParameter('code'));
-
+        $ticket = /*(Ticket)*/Doctrine::getTable('ticket')->findOneByBubbleTag(trim($request->getParameter('code')));
     	$stats = $user->getAttribute('scan_stats', array());
     	if(!isset($stats[$ticket->getAmount()])){
     		$stats[$ticket->getAmount()] = array();
