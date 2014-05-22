@@ -8,7 +8,8 @@
  * @author Your name here
  * @version SVN: $Id: actions.class.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
  */
-class exportsActions extends sfActions {
+class exportsActions extends sfActions
+{
     /**
      * Executes index action
      *
@@ -28,26 +29,29 @@ class exportsActions extends sfActions {
                 if ($this->form->isValid()) {
                     $values = $this->form->getValues();
                     $date = $values['date'];
-                    // $ids =/*(Doctrine_Query)*/ Doctrine_Query::create()->select('MAX(id),e.ticket_id')->from('TicketTrackingEntry e')->leftJoin('e.TicketTracking tt')->where("date_format(e.created_at, '%Y-%m-%d') = ?", $date)->groupBy('e.ticket_id')->execute(array(), Doctrine_Core::HYDRATE_ARRAY);
+                    $ids = /*(Doctrine_Query)*/
+                        Doctrine_Query::create()->select('MAX(id),e.ticket_id')->from('TicketTrackingEntry e')->leftJoin('e.TicketTracking tt')->where("date_format(e.created_at, '%Y-%m-%d') = ?", $date)->groupBy('e.ticket_id')->execute(array(), Doctrine_Core::HYDRATE_ARRAY);
 
-                    // $inIds = array();
-                    // foreach ($ids as $details) {
-                    // $inIds[] = $details['MAX'];
-                    // }
+                    $inIds = array();
+                    foreach ($ids as $details) {
+                        $inIds[] = $details['MAX'];
+                    }
 
-                    // $lasts =/*(Doctrine_Query)*/ Doctrine_Query::create()->select('MAX(id),e.ticket_id,e.created_at')->from('TicketTrackingEntry e')->where("date_format(e.created_at, '%Y-%m-%d') = ?", $date)->whereNotIn('e.id', $inIds)->groupBy('e.ticket_id')->execute(array(), Doctrine_Core::HYDRATE_ARRAY);
+                    $lasts = /*(Doctrine_Query)*/
+                        Doctrine_Query::create()->select('MAX(id),e.ticket_id,e.created_at')->from('TicketTrackingEntry e')->where("date_format(e.created_at, '%Y-%m-%d') = ?", $date)->whereNotIn('e.id', $inIds)->groupBy('e.ticket_id')->execute(array(), Doctrine_Core::HYDRATE_ARRAY);
 
-                    // $lastSaisie = array();
-                    // foreach ($lasts as $last) {
-                    // $lastSaisie[$last['ticket_id']] = $last['created_at'];
-                    // }
+                    $lastSaisie = array();
+                    foreach ($lasts as $last) {
+                        $lastSaisie[$last['ticket_id']] = $last['created_at'];
+                    }
 
-                    // $q2 =/*(Doctrine_Query)*/ Doctrine_Query::create()->from('TicketTrackingEntry e')->leftJoin('e.Ticket t')->leftJoin('e.TicketTracking tt')->whereIn('e.id', $inIds)->andWhere("date_format(e.created_at, '%Y-%m-%d') = ?", $date) ;
+                    $q2 = /*(Doctrine_Query)*/
+                        Doctrine_Query::create()->from('TicketTrackingEntry e')->leftJoin('e.Ticket t')->leftJoin('e.TicketTracking tt')->whereIn('e.id', $inIds)->andWhere("date_format(e.created_at, '%Y-%m-%d') = ?", $date);
 
-                    // if (!empty($values['actor'])) { // un acteur en particulier
-                    // $q2->andWhere('tt.actor_id = ?', $values['actor']['id']);
-                    // }
-                    // $q2->addOrderBy('e.created_at DESC');
+                    if (!empty($values['actor'])) { // un acteur en particulier
+                        $q2->andWhere('tt.actor_id = ?', $values['actor']['id']);
+                    }
+                    $q2->addOrderBy('e.created_at DESC');
 
                     // $rr = $q2->execute(array(), Doctrine_Core::HYDRATE_ARRAY);
                     if (!empty($values['actor'])) { // un acteur en particulier
@@ -71,7 +75,8 @@ class exportsActions extends sfActions {
                     $from = $values['from'];
                     $to = $values['to'];
 
-                    $query =/*(Doctrine_Query)*/ Doctrine_Query::create()->from('TicketTrackingEntry e')->leftJoin('e.Ticket t')->leftJoin('e.TicketTracking tt')->where("date_format(e.created_at, '%Y-%m-%d') >= ? AND date_format(e.created_at, '%Y-%m-%d') <= ?", array($from, $to))->addOrderBy('e.created_at DESC');
+                    $query = /*(Doctrine_Query)*/
+                        Doctrine_Query::create()->from('TicketTrackingEntry e')->leftJoin('e.Ticket t')->leftJoin('e.TicketTracking tt')->where("date_format(e.created_at, '%Y-%m-%d') >= ? AND date_format(e.created_at, '%Y-%m-%d') <= ?", array($from, $to))->addOrderBy('e.created_at DESC');
 
                     if ($values['operator']) {
                         $query->andWhereIn("tt.operator_id", $values['operator']['id']);
@@ -108,7 +113,7 @@ class exportsActions extends sfActions {
                             case TicketTrackingEntry::STATUS_NEW:
                                 $state = utf8_decode('Mis en circulation');
                                 break;
-                            default:// STATUS_EXPIRED
+                            default: // STATUS_EXPIRED
                                 $state = utf8_decode('Expiré');
                         } // switch
                         $return[$key][utf8_decode('état de la transaction')] = $state;
