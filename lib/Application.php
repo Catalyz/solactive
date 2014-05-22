@@ -39,7 +39,7 @@ class Application {
                     $Ticket = $res['Ticket'];
                     $Actor = $allUsers[$res['TicketTracking']['actor_id']];
 
-                    if ((!$restrictToActorId || ($restrictToActorId == $res['TicketTracking']['actor_id'])) || (!$restrictToOperatorId || ($restrictToOperatorId == $res['TicketTracking']['operator_id']))) {
+                    if ((!$restrictToActorId || ($restrictToActorId == $res['TicketTracking']['actor_id'])) && (!$restrictToOperatorId || ($restrictToOperatorId == $res['TicketTracking']['operator_id']))) {
                         $item = array();
 
                         $item['date de creation du coupon'] = date('d/m/Y', strtotime($Ticket['created_at']));
